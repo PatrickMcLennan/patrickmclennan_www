@@ -10,23 +10,26 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/core";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "urql";
 import { Hero } from "../components/Hero";
 import { Nav } from "../components/Nav";
-import { ProjectBadge } from "../components/ProjectBadge";
-import { useStore } from "../store";
+import { PROJECTS_QUERY } from "../queries/ProjectsQuery";
+
+const PAGINATION_COUNT = 10;
 
 function Projects() {
   const [filters, setFilters] = useState([]);
   const { register, handleSubmit } = useForm();
-  const projects = useStore((state) => state.projects);
-
-  console.log(projects);
+  const currentlyDisplayed = useRef(PAGINATION_COUNT);
+  const [{ fetching, error, data }, executeQuery] = useQuery({
+    query: PROJECTS_QUERY,
+    variables: { from: currentlyDisplayed.current - PAGINATION_COUNT, to: currentlyDisplayed.current },
+  });
 
   const onSubmit = (values?) => {
     console.log(values);
-    // if (values)
   };
 
   return (
@@ -47,7 +50,7 @@ function Projects() {
                   <MenuList aria-label="Select a language to filter by">
                     {[`HTML`, `CSS`, `JavaScript`, `TypeScript`, `Rust`, `Python`, `Bash`].map((language) => (
                       <MenuItem
-                      key={language}
+                        key={language}
                         onClick={() => {
                           setFilters((prevFilters) =>
                             prevFilters.includes(language)
@@ -72,9 +75,6 @@ function Projects() {
           </Menu>
         </Flex>
       </FormControl>
-      {projects.map((project) => (
-        <ProjectBadge project={project} />
-      ))}
     </>
   );
 }
