@@ -1,33 +1,24 @@
-version: "2"
+version: "3"
 services:
-  client:
-    image: node
-    container_name: patrickmclennan_client
-    restart: always
-    stdin_open: true
+  patrickmclennan_client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
     ports:
       - "3000:3000"
-    volumes:
-      - ./client:/client
-      - /client/node_modules
-    links:
-      - server
-    networks:
-      - patrickmclennan
-
-  server:
-    image: node
-    container_name: patrickmclennan-server
-    restart: always
-    stdin_open: true
+    restart: on-failure
+    container_name: patrickmclennan_client
+  patrickmclennan_server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
     ports:
-      - "4000:4000"
+      - "3001:3001"
+    restart: on-failure
+    container_name: patrickmclennan_server
     volumes:
-      - ./server:/server
-      - /server/node_modules
-    networks:
-      - patrickmclennan
-
-networks:
-  patrickmclennan:
-    driver: bridge
+      - /app/node_modules
+      - ./server:/app
