@@ -1,0 +1,33 @@
+version: "2"
+services:
+  client:
+    image: node
+    container_name: patrickmclennan_client
+    restart: always
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    links:
+      - server
+    networks:
+      - patrickmclennan
+
+  server:
+    image: node
+    container_name: patrickmclennan-server
+    restart: always
+    stdin_open: true
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    networks:
+      - patrickmclennan
+
+networks:
+  patrickmclennan:
+    driver: bridge

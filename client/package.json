@@ -1,0 +1,36 @@
+{
+  "name": "with-chakra-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest --watchAll"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.5.2",
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "framer-motion": "^2.6.13",
+    "next": "^9.1.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hook-form": "^6.8.2",
+    "react-hook-google-maps": "^0.0.3",
+    "react-query": "^2.17.1",
+    "zustand": "^3.1.2"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.10.1",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.2",
+    "typescript": "^4.0.2"
+  },
+  "description": "This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app.",
+  "main": "index.js",
+  "keywords": [],
+  "author": ""
+}
